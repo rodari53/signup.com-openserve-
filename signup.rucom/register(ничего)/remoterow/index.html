@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div>
+
+            <label for="name">Name</label>
+            <input name="name" id="name" type="text"><br>
+            <label for="lastname">Lastname</label>
+            <input name="lastname" id="lastname" type="text"><br>
+            <button id="add" onclick="Add(); return false;">Добавить</button>
+
+
+        <button onclick="delall(); return false;">Удалить все</button>
+    </div>
+    <br>
+    <div>
+        <table id="table" border="1">
+            <tr>
+                <th>Name</th>
+                <th>Lastname</th>
+                <th>Action</th>
+            </tr>
+        </table>
+    </div>
+<script>
+    function Add() {
+
+        var name = document.getElementById('name').value;
+        var last = document.getElementById('lastname').value;
+
+        if(name && last) {
+            var tr = document.createElement('tr');
+
+            var td1 = document.createElement('td');
+            var td2 = document.createElement('td');
+            var td3 = document.createElement('td');
+
+            var text1 = document.createTextNode(name);
+            var text2 = document.createTextNode(last);
+            var text3 = document.createElement("button");
+            var buttext = document.createTextNode("Удалить");
+            var atr = document.createAttribute('onclick');
+            atr.value = 'deleteRow(this);';
+            text3.appendChild(buttext);
+            text3.setAttributeNode(atr);
+
+            td1.appendChild(text1);
+            td2.appendChild(text2);
+            td3.appendChild(text3);
+
+            tr.appendChild(td1);
+            tr.appendChild(td2);
+            tr.appendChild(td3);
+
+            var table = document.getElementById('table');
+            table.appendChild(tr);
+            console.log("added");
+        }
+    }
+    function delall() {
+        var table = document.getElementById('table');
+
+        for (var i=table.rows.length-1;i>0;i--){
+            table.deleteRow(i);
+        }
+    }
+    function deleteRow(r) {
+        var i = r.parentNode.parentNode.rowIndex;
+        document.getElementById("table").deleteRow(i);
+    }
+</script>
+</body>
+</html>
